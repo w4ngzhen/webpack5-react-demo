@@ -39,6 +39,19 @@ module.exports = {
                     'css-loader',
                     'less-loader'
                 ]
+            },
+            {
+                // 引用的资源如果是 '${svg-path}/icon-comment.svg?abc'
+                test: /\.svg$/,
+                resourceQuery: /abc/,
+                // 以webpack的资源形式加载（普通资源文件、base64等）
+                type: 'asset',
+            },
+            {
+                // 除了上面的匹配规则，我们都按照React组件来使用
+                test: /\.svg$/,
+                resourceQuery: {not: [/abc/]},
+                use: ['@svgr/webpack']
             }
         ]
     },
